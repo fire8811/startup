@@ -1,5 +1,7 @@
 # CS 260 Notes
 
+project codename is Raven
+
 [My startup](https://simon.cs260.click)
 
 ## Helpful links
