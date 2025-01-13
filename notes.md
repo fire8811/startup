@@ -1,6 +1,18 @@
 # CS 260 Notes
-
 project codename is Raven
+
+## Startup spec (things learned)
+basic git commands include 
+```
+git status
+git commit
+git diff
+git push
+```
+
+The startup spec gives this important rule:
+> It is a prerequisite for all deliverables that you have at least 10 commits evenly spread across the assignment period for the deliverable.
+
 
 [My startup](https://simon.cs260.click)
 
