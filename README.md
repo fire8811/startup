@@ -41,9 +41,9 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- An interactive color gradient allows users to select colors (the crux of the gameplay)
+- Global top scores and personal high scores are stored in a database
+- Secure login to save and post scores
 
 ### Technologies
 
