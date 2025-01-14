@@ -1,9 +1,6 @@
-# Raven
+# Huey
 
 [My Notes](notes.md)
-
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
 
 > [!NOTE]
 >  This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
@@ -18,15 +15,16 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
+- [X] Proper use of Markdown
+- [X] A concise and compelling elevator pitch
+- [X] Description of key features
+- [X] Description of how you will use each technology
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Sometimes we just need something to stimulate and entertain our minds for a very
+short amount of time that doesn't involve infinite doomscrolling. Meet Huey! Huey is a game where you have two squares: one contains the target color, and the other's color can be changed by you! You have exactly 60 seconds to get as many matches as you can. Exceptionally skilled players will have their name immortalized on the global leaderboard for all to see!
 
 ### Design
 
@@ -43,20 +41,21 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- An interactive color gradient allows users to select colors (the crux of the gameplay)
+- Global top scores and personal high scores are stored in a database
+- Secure login to save and post scores
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - 4 HTML Pages. One for login, one for main menu, one for leaderboards, one for gameplay
+- **CSS** - Making the app look good. Most important aspect is adding the color gradient for picking colors.
+- **JavaScript** - Interactivity. Adds button clicking functions, for example
+- **React** - Reactivity. Key features will be login live updates to the score counter
+- **Service** - Saves scores and updates leaderboards. Provides the name of a color using The Color API (http://www.thecolorapi.com)
+- **DB/Login** - Registers users and stores their credentials securely in a database. High scores will be stored in a database.
+- **WebSocket** - Websocket: alerts players to new scores acheived by other players
 
 ## 🚀 AWS deliverable
 
