@@ -28,16 +28,9 @@ short amount of time that doesn't involve infinite doomscrolling. Meet Huey! Hue
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](Assets/design.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+The main menu contains a button to play the game, a leaderboard showing the top scores, and the player's personal best score. The actual game consists of two squares, one of which is the target color, and the other displays the selected color. An interactive color gradient allows the user to change the selected color until they are satisfied, where they press submit. Successful matches add a point to the point counter and changes the target color. Game is played until the timer (starting at 60s) reaches zero. 
 
 ### Key features
 
