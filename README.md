@@ -15,7 +15,7 @@
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
+- [X] Proper use of Markdown
 - [X] A concise and compelling elevator pitch
 - [X] Description of key features
 - [X] Description of how you will use each technology
@@ -24,7 +24,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 ### Elevator pitch
 
 Sometimes we just need something to stimulate and entertain our minds for a very
-short amount of time that doesn't involve infinite doomscrolling. Meet Hugh! It's a play on words of "hue." Hugh is a game where you have two shapes: one contains the target color, and the other's color can be changed by you! You have exactly 60 seconds to get as many matches as you can. Exceptionally skilled players will have their name immortalized on the global leaderboard for all to see!
+short amount of time that doesn't involve infinite doomscrolling. Meet Huey! Huey is a game where you have two squares: one contains the target color, and the other's color can be changed by you! You have exactly 60 seconds to get as many matches as you can. Exceptionally skilled players will have their name immortalized on the global leaderboard for all to see!
 
 ### Design
 
