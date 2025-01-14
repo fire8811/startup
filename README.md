@@ -1,4 +1,4 @@
-# Hugh
+# Huey
 
 [My Notes](notes.md)
 
@@ -16,9 +16,9 @@
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
+- [X] A concise and compelling elevator pitch
+- [X] Description of key features
+- [X] Description of how you will use each technology
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
@@ -49,12 +49,13 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - 4 HTML Pages. One for login, one for main menu, one for leaderboards, one for gameplay
+- **CSS** - Making the app look good. Most important aspect is adding the color gradient for picking colors.
+- **JavaScript** - Interactivity. Adds button clicking functions, for example
+- **React** - Reactivity. Key features will be login live updates to the score counter
+- **Service** - Saves scores and updates leaderboards. Provides the name of a color using The Color API (http://www.thecolorapi.com)
+- **DB/Login** - Registers users and stores their credentials securely in a database. High scores will be stored in a database.
+- **WebSocket** - Websocket: alerts players to new scores acheived by other players
 
 ## 🚀 AWS deliverable
 
