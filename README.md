@@ -55,15 +55,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [X] **HTML pages** - Multiple pages for home page, instructions, game, and leaderboard
+- [X] **Proper HTML element usage** - HTML elements were used to populate the HTML pages with necessary information and future mechanics
+- [X] **Links** - Navigation menu on every HTML page 
+- [X] **Text** - Text was included, such as gameplay instructions
+- [X] **3rd party API placeholder** - a placeholder for the API provided color name was provided over the two color squares
+- [X] **Images** - an image was on every webpage
+- [X] **Login placeholder** - Login placeholder provided on the home webpage
+- [X] **DB data placeholder** - DB placeholder provided in the leaderboard page
+- [X] **WebSocket placeholder** - Gameplay updates located in the game page
 
 ## 🚀 CSS deliverable
 
