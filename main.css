@@ -1,0 +1,34 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    flex: 0 80px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+footer {
+    display: flex;
+    flex: 0 30px;
+    flex-direction: row;
+}
+
+@media(max-height: 500px){
+    footer{
+        display: none;
+    }
+}
