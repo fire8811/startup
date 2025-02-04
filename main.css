@@ -22,10 +22,21 @@ main {
   }
 
 footer {
+    flex: 0 60px;
     display: flex;
-    flex: 0 30px;
     flex-direction: row;
+    align-items: center;
+    padding-left: .4em;
+    padding-right: .4em;
+    background-color: rgb(85, 0, 113);
 }
+
+
+footer .pallete-credit{
+    float: right;
+    align-items: center;
+}
+
 
 @media(max-height: 500px){
     footer{
