@@ -34,8 +34,12 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: aliceblue;
+    background: linear-gradient(to bottom, aliceblue, #c9d5ef);
   }
+
+thead {
+    background-color: #0c3ca3;
+}
 
 footer {
     flex: 0 60px;
