@@ -43,10 +43,21 @@ main .center-content{
     margin: .8em;
     color: gray;
 }
+
 .card-body{
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: .5em;
+    font-weight: bold;
+    font-family: monospace;
+
 }
 
 .btn {
