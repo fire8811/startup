@@ -39,6 +39,10 @@ main .center-content{
     align-items: center;
 }
 
+.notification {
+    margin: .8em;
+    color: gray;
+}
 .card-body{
     display: flex;
     flex-direction: column;
