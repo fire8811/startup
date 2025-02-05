@@ -32,10 +32,21 @@ main {
     background: linear-gradient(to bottom, aliceblue, #c9d5ef);
 }
 
-.center{
-    top: 50%;
-    bottom: 50%;
-    transform: translateX(50%) translateY(-50%)
+main .center-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.btn {
+    margin-top: .75em;
 }
 
 footer {
