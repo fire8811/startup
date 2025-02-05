@@ -69,12 +69,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [X] **Header, footer, and main content body** - All stylized and functional with necessary information. 
+- [X] **Navigation elements** -Navigation elements included in header
+- [X] **Responsive to window resizing** - Header and Footer are responsive to window resizing
+- [X] **Application elements** - Leaderboard, game controls, login now look pretty
+- [X] **Application text content** - Text elements are also stylized
+- [X] **Application images** - Small paint pallette logo on top corner of every page
 
 ## 🚀 React part 1: Routing deliverable
 
