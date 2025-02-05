@@ -33,9 +33,23 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    background-color: aliceblue;
+    justify-content: center;
+    background: linear-gradient(to bottom, aliceblue, #c9d5ef);
   }
+
+main .card {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, .8);
+    backdrop-filter: blur(50px);
+}
+
+main .form-group {
+    padding: 0.7em;
+}
+
+main .btn{
+    margin-left: 0.7em;
+}
 
 footer {
     flex: 0 60px;
@@ -46,7 +60,6 @@ footer {
     padding-right: .4em;
     background-color: rgb(85, 0, 113);
 }
-
 
 footer .pallete-credit{
     float: right;

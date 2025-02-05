@@ -34,7 +34,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: aliceblue;
+    background: linear-gradient(to bottom, aliceblue, #c9d5ef);
   }
 
 footer {
