@@ -28,10 +28,14 @@ menu .nav-item {
 main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     flex: 1;
     background: linear-gradient(to bottom, aliceblue, #c9d5ef);
+}
+
+.center{
+    top: 50%;
+    bottom: 50%;
+    transform: translateX(50%) translateY(-50%)
 }
 
 footer {
