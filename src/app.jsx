@@ -5,7 +5,7 @@ import { Home } from './home/home';
 import { Instructions } from './instructions/instructions';
 import { Leaderboard } from './leaderboard/leaderboard';
 import { Play } from './play/play';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 
 export default function App(){
     return(
