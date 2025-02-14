@@ -39,6 +39,7 @@ export default function App(){
             <Route path='/instructions' element={<Instructions />} />
             <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/play' element={<Play />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
       
       
@@ -53,4 +54,8 @@ export default function App(){
       </BrowserRouter>
     
     );
+
+function NotFound() {
+  return <main className="container-fluid bg-secondary text-center">404: Not Found!</main>;
+}
 }
