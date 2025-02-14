@@ -10,7 +10,7 @@ export default function App(){
       <nav className="navbar fixed-top navbar-dark">
         <a className="navbar-brand" href="#">
           <img alt="Paint" src="Assets/pallette.png" width="50" />
-          Huey!<sup>&TRADE;</sup></a>
+          Huey!</a>
         <menu className="navbar-nav">
           <li className="nav-item">
             <a className="nav-link active" href="index.html">Home</a>
@@ -29,7 +29,7 @@ export default function App(){
     </header>
 
     <main>
-      <h2> Welcome to Huey</h2>
+      App goes here
     </main>
 
 
