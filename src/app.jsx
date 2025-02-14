@@ -34,9 +34,12 @@ export default function App(){
             </nav>
           </header>
       
-          <main>
-            App goes here
-          </main>
+          <Routes>
+            <Route path='/' element={<Home />} exact />
+            <Route path='/instructions' element={<Instructions />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
+            <Route path='/play' element={<Play />} />
+          </Routes>
       
       
           <footer className="text-white">
