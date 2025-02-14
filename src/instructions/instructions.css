@@ -33,13 +33,12 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 100px;
     background: linear-gradient(to bottom, aliceblue, #c9d5ef);
   }
 
-h2 {
-    padding: 20px;
+h2{
     font-style: italic;
+    margin-bottom: .1rem;
 }
 
 footer {
