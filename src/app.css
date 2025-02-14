@@ -1,0 +1,95 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+menu {
+    flex: 1;
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    padding-left: 15px;
+}
+
+
+menu .nav-item {
+    padding: 0 0.45em;
+    align-items: center;
+}
+
+menu .btn {
+    display: flex;
+    align-items: center;
+}
+
+header {
+    background-color: rgb(185, 49, 142);
+    flex: 0 80px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, aliceblue, #c9d5ef);
+  }
+
+main .card {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, .8);
+    backdrop-filter: blur(50px);
+}
+
+main .form-group {
+    padding: 0.7em;
+}
+
+main .btn{
+    margin-left: 0.7em;
+}
+
+footer {
+    flex: 0 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: .4em;
+    padding-right: .4em;
+    background-color: rgb(85, 0, 113);
+}
+
+footer .pallete-credit{
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+
+@media(max-height: 600px){
+    footer{
+        display: none;
+    }
+}
+
+@media(max-height: 500px){
+    header.container-fluid{
+        display: none;
+    }
+    nav.navbar.fixed-top{
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    footer.pallete-credit {
+      display: none; /* Hide the footer items */
+    }
+  }
