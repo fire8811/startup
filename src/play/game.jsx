@@ -2,7 +2,12 @@ import React from 'react';
 import './play.css';
 
 export function Game(props){
+    const [color, colorUpdate] = React.useState();
 
+    function onChange(event){
+        colorUpdate(event.target.value);
+    }
+    
 
     return (
         <div className="center-content">
@@ -19,19 +24,21 @@ export function Game(props){
                   </div>
                 </div>
                 <h5> [API PROVIDED COLOR NAME HERE]</h5>
+
+
                 <div className="squares">
+                
                   <svg width="100" height="100">
                     <rect width="100" height="100" fill="red"/>
                   </svg>
-                  <svg width="100" height="100">
-                    <rect width="100" height="100" fill="blue"/>
-                  </svg>
+
+                  <SelectorSquare chosenColor={color}/>
                 </div>
 
                 
                   <label for="color">Pick Color: </label>
                 <div id="color-picker">
-                  <input type="color" value="#ff350c" name="varColor" id="color" />
+                  <input type="color" onChange={onChange} value={color} />
                 </div>
                 
                 <div id="btn">
@@ -44,5 +51,13 @@ export function Game(props){
             </div>
           </div>
         </div>
+    );
+}
+
+function SelectorSquare({chosenColor}) {
+    return (
+        <svg width="100" height="100">
+            <rect width="100" height="100" fill={chosenColor}/>
+        </svg>
     );
 }
