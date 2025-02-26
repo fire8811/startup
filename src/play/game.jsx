@@ -2,8 +2,11 @@ import React, {useEffect} from 'react';
 import './play.css';
 
 export function Game(props){
+    const [pauseLabel, updatePause] = React.useState("Pause")
+    const [colorLabel, updateLabel] = React.useState("\u00A0");
+    const [canPlay, updateCanPlay] = React.useState(true);
     const [gameStatus, setGameStatus] = React.useState("Player_Name's Game");
-    const [timer, updateTimer] = React.useState(10)
+    const [timer, updateTimer] = React.useState(15)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
@@ -13,9 +16,28 @@ export function Game(props){
         updateScore(0); //reset score
         changeTargetColor(getRandomColor);
         setGameStatus("Player_Name's Game")
+        updateLabel("\u00A0")
     }
 
-    useEffect(() => {
+    function pauseGame() {
+        if (pauseLabel === "Pause"){
+            updatePause("Resume");
+        }
+        else if (pauseLabel === "Resume"){
+            updatePause("Pause")
+        }
+        
+    }
+
+    useEffect(() => { //has the colorLabel Wrong Color or API color display for about 2 seconds
+        if(colorLabel != "\u00A0"){
+            setInterval(() => {
+                updateLabel("\u00A0")
+            }, 1750)
+        }
+    }, [colorLabel]);
+
+    useEffect(() => { //display GAME OVER when the timer reaches 0
         if (timer == 0){
             setGameStatus("GAME OVER");
         }
@@ -28,6 +50,8 @@ export function Game(props){
         setColor(newColor);
         
     }
+
+
 
     useEffect(() => { //timer functionality 
         if (timer > 0){
@@ -55,12 +79,13 @@ export function Game(props){
             console.log("MATCH")
             updateScore(score+1);
             changeTargetColor(getRandomColor())
+            updateLabel("[API PROVIDED COLOR NAME HERE]")
 
             //update targetColor
             //add points to scoreboard
         }
         else{
-            console.log("NO MATCH");
+            updateLabel("WRONG COLOR!");
         }
         //else:
         //print "WRONG COLOR"
@@ -129,7 +154,7 @@ export function Game(props){
                     Time Remaining: &nbsp;<span id="time-remaining">{timer}</span>
                   </div>
                 </div>
-                <h5> [API PROVIDED COLOR NAME HERE]</h5>
+                <h5>{colorLabel}</h5>
 
 
                 <div className="squares">
@@ -148,7 +173,7 @@ export function Game(props){
                 
                 <div id="btn">
                   <a href="#" className="btn btn-success" onClick={selectClick}>Select</a>
-                  <a href="#" className="btn btn-secondary">Pause</a>
+                  <a href="#" className="btn btn-secondary" onClick={pauseGame}>{pauseLabel}</a>
                   <a href="#" className="btn btn-danger" onClick={resetGame}>Reset</a>
                 </div>
                 
