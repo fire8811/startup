@@ -6,8 +6,13 @@ import { Instructions } from './instructions/instructions';
 import { Leaderboard } from './leaderboard/leaderboard';
 import { Play } from './play/play';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import {AuthState} from './home/authState';
 
 export default function App(){
+  const [username, setUsername] = React.useState(localStorage.getItem('USERNAME') || '');
+  const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
+  
     return(
       <BrowserRouter>
         <div className="body bg-dark text-dark"> 
@@ -22,23 +27,37 @@ export default function App(){
                   <NavLink className="nav-link" to=''>Home</NavLink>
                 </li>
                 <li className="nav-item">
-                <NavLink className="nav-link" to='play'>Play</NavLink>
+                  {authState === AuthState.Authenticated && (
+                    <NavLink className="nav-link" to='play'>Play</NavLink>
+                  )}
                 </li>
                 <li className="nav-item">
                 <NavLink className="nav-link" to='instructions'>Instructions</NavLink>
                 </li>
                 <li className="nav-item">
-                <NavLink className="nav-link" to='leaderboard'>Leaderboard</NavLink>
+                {authState === AuthState.Authenticated && (
+                    <NavLink className="nav-link" to='leaderboard'>Leaderboard</NavLink>
+                  )}
                 </li>
               </menu>
             </nav>
           </header>
       
           <Routes>
-            <Route path='/' element={<Home />} exact />
+            <Route path='/' element={
+              <Home 
+                username={username}
+                authState={authState}
+                onAuthChange={(username, authState) => {
+                  setAuthState(authState);
+                  setUsername(username);
+                  }
+                }
+              />} 
+              exact />
             <Route path='/instructions' element={<Instructions />} />
             <Route path='/leaderboard' element={<Leaderboard />} />
-            <Route path='/play' element={<Play />} />
+            <Route path='/play' element={<Play username={username} />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
       

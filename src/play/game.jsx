@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
 import './play.css';
 
-export function Game(props){
+export function Game(){
     const [pauseLabel, updatePause] = React.useState("Pause")
     const [colorLabel, updateLabel] = React.useState("\u00A0"); //API color name or wrong color warning
     const [canPlay, updateCanPlay] = React.useState(true); //game pause status
     const [gameStatus, setGameStatus] = React.useState("Player_Name's Game");
-    const [timer, updateTimer] = React.useState(15)
+    const [timer, updateTimer] = React.useState(90)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
     
     function resetGame(){
-        updateTimer(25); //reset timer
+        updateTimer(90); //reset timer
         updateScore(0); //reset score
         changeTargetColor(getRandomColor);
         setGameStatus("Player_Name's Game")
@@ -129,7 +129,7 @@ export function Game(props){
         let bDiff = Math.abs(playerB - targetB);
         //console.log([rDiff, gDiff, bDiff]);
 
-        if ((rDiff <= 5) && (gDiff <= 5) && (bDiff <= 5)){
+        if ((rDiff <= 40) && (gDiff <= 40) && (bDiff <= 40)){
             return true;
         }
         
