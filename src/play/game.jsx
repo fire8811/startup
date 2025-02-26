@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './play.css';
 
 export function Game(props){
+    const [timer, updateTimer] = React.useState(10)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
@@ -11,6 +12,15 @@ export function Game(props){
         setColor(newColor);
         
     }
+
+    useEffect(() => {
+        if (timer > 0){
+            const interval = setInterval(() => {
+                updateTimer((time) => time - 1);
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [timer]);
 
     function selectClick() { //
         updateIfMatch();
@@ -99,7 +109,7 @@ export function Game(props){
                     Score: &nbsp;<span id="score-value">{score}</span>
                   </div>
                   <div className="time">
-                    Time Remaining: &nbsp;<span id="time-remaining">60s</span>
+                    Time Remaining: &nbsp;<span id="time-remaining">{timer}</span>
                   </div>
                 </div>
                 <h5> [API PROVIDED COLOR NAME HERE]</h5>
@@ -120,9 +130,9 @@ export function Game(props){
                 </div>
                 
                 <div id="btn">
-                  <a href="#" className="btn btn-success" onClick={selectClick}>Select</a>
+                  <a href="#" className="btn btn-success" onClick={selectClick} disabled={timer === "10s"}Y>Select</a>
                   <a href="#" className="btn btn-secondary">Pause</a>
-                  <a href="#" className="btn btn-danger">Reset</a>
+                  <a href="#" className="btn btn-danger" >Reset</a>
                 </div>
                 
               </div>
