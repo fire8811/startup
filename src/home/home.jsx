@@ -9,15 +9,22 @@ export function Home({username, authState, onAuthChange}){
     return (
         <main className="container-fluid bg-secondary text-center">
             <div>
-                {authState !== AuthState.Unknown && <h2> Welcome to Huey</h2>}
+                {authState === AuthState.Unknown && <h2> An error has occured</h2>}
                 {authState === AuthState.Authenticated && (
+                    <>
+                    <h2>Welcome to Huey, {username}</h2>
                     <Authenticated username={username} onLogout={()=> onAuthChange(username, AuthState.Unauthenticated)} />
+                    </>
                 )}
                 {authState === AuthState.Unauthenticated && (
-                    <Unauthenticated
+                    <>
+                        <h2>Welcome to Huey</h2>
+                        <Unauthenticated
                         username={username}
                         onLogin={(loginName) => {onAuthChange(loginName, AuthState.Authenticated);}}
                     />
+                    </>
+                    
                 )}
             </div>
             

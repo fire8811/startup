@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './play.css';
 
-export function Game(){
+export function Game({user}){
     const [pauseLabel, updatePause] = React.useState("Pause")
     const [colorLabel, updateLabel] = React.useState("\u00A0"); //API color name or wrong color warning
     const [canPlay, updateCanPlay] = React.useState(true); //game pause status
