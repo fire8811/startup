@@ -4,7 +4,7 @@ import './play.css';
 export function Game(props){
     const [pauseLabel, updatePause] = React.useState("Pause")
     const [colorLabel, updateLabel] = React.useState("\u00A0"); //API color name or wrong color warning
-    const [canPlay, updateCanPlay] = React.useState(true); 
+    const [canPlay, updateCanPlay] = React.useState(true); //game pause status
     const [gameStatus, setGameStatus] = React.useState("Player_Name's Game");
     const [timer, updateTimer] = React.useState(15)
     const [score, updateScore] = React.useState(0);
@@ -17,20 +17,27 @@ export function Game(props){
         changeTargetColor(getRandomColor);
         setGameStatus("Player_Name's Game")
         updateLabel("\u00A0")
+        updateCanPlay(true);
     }
 
     function pauseGame() {
         if (pauseLabel === "Pause"){
             updatePause("Resume");
+            updateLabel("Game Paused")
+            updateCanPlay(false);
+            console.log(canPlay);
         }
         else if (pauseLabel === "Resume"){
             updatePause("Pause")
+            updateLabel("\u00A0")
+            updateCanPlay(true);
+            console.log(canPlay);
         }
         
     }
 
     useEffect(() => { //make the colorLabel Wrong Color or API color display for about 2 seconds
-        if(colorLabel != "\u00A0"){
+        if(colorLabel != "\u00A0" && colorLabel != "Game Paused"){
             const timeShown = setTimeout(() => {
                 updateLabel("\u00A0");
             }, 1500);
@@ -43,30 +50,29 @@ export function Game(props){
     useEffect(() => { //display GAME OVER when the timer reaches 0
         if (timer == 0){
             setGameStatus("GAME OVER");
+            updateCanPlay(false);
         }
         
     }, [timer]);
 
     function onChange(event){ //changes the color square based on color picker input
-        if (timer === 0) return;
+        if (canPlay == false) return;
         let newColor = event.target.value;
         setColor(newColor);
         
     }
 
-
-
     useEffect(() => { //timer functionality 
-        if (timer > 0){
+        if (timer > 0 && canPlay == true){
             const interval = setInterval(() => {
                 updateTimer((time) => time - 1);
             }, 1000);
             return () => clearInterval(interval);
         }
-    }, [timer]);
+    }, [timer, canPlay]);
 
-    function selectClick() { //select button
-        if (timer === 0) return;
+    function selectClick() { //select button to test color match
+        if (canPlay == false) return;
         updateIfMatch();
     }
 
