@@ -2,13 +2,9 @@ import React from 'react';
 import './play.css';
 
 export function Game(props){
-    let score = 0;
+    const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
-
-    function getRandomColor(){
-        return 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) +',' + Math.floor(Math.random() * 256) + ')';
-    }
     
     function onChange(event){ 
         let newColor = event.target.value;
@@ -17,7 +13,32 @@ export function Game(props){
     }
 
     function selectClick() { //
-        updateTargetIfMatch();
+        updateIfMatch();
+    }
+
+    function updateIfMatch(){
+        let playerColor = hexToRGB(color);
+        //console.log("TARGET: " + targetColor); //color of target square
+        //console.log("PLAYER: " + playerColor); //color of player square
+        
+        let playerRGB = getRgbArray(playerColor);
+        let targetRGB = getRgbArray(targetColor);
+
+        if(testColorEquality(targetRGB, playerRGB)){
+            console.log("MATCH")
+            updateScore(score+1);
+            changeTargetColor(getRandomColor())
+
+            //update targetColor
+            //add points to scoreboard
+        }
+        else{
+            console.log("NO MATCH");
+        }
+        //else:
+        //print "WRONG COLOR"
+        //console.log("GAME: " + testColorEquality(targetRGB, playerRGB));
+        //console.log(targetColor == playerColor);
     }
 
     function hexToRGB(hexColor){
@@ -29,22 +50,10 @@ export function Game(props){
         
     }
 
-    function updateTargetIfMatch(){
-        let playerColor = hexToRGB(color);
-        //console.log("TARGET: " + targetColor); //color of target square
-        //console.log("PLAYER: " + playerColor); //color of player square
-        
-        let playerRGB = getRgbArray(playerColor);
-        let targetRGB = getRgbArray(targetColor);        
-        
-        //console.log("GAME: " + testColorEquality(targetRGB, playerRGB));
-        //console.log(targetColor == playerColor);
-    }
-
     function testColorEquality(target, player) {
-        console.log("IN_TEST_COLOR_EQUALITY")
-        console.log("TARGET_RGB: " + target);
-        console.log("PLAYER_RGB: " + player);
+        //console.log("IN_TEST_COLOR_EQUALITY")
+        //console.log("TARGET_RGB: " + target);
+        //console.log("PLAYER_RGB: " + player);
 
         let targetR = target[0]
         let targetG = target[1]
@@ -75,6 +84,10 @@ export function Game(props){
         return rgbArray;
     }
 
+    function getRandomColor(){
+        return 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) +',' + Math.floor(Math.random() * 256) + ')';
+    }
+
     return (
         <div className="center-content">
           <h3>Player_Name's Game</h3>
@@ -83,7 +96,7 @@ export function Game(props){
               <div className="card-body">
                 <div className="game-info">
                   <div className="score">
-                    Score: &nbsp;<span id="score-value">00</span>
+                    Score: &nbsp;<span id="score-value">{score}</span>
                   </div>
                   <div className="time">
                     Time Remaining: &nbsp;<span id="time-remaining">60s</span>
