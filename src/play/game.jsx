@@ -7,7 +7,13 @@ export function Game(props){
     const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
     
-    function onChange(event){ 
+    function resetGame(){
+        updateTimer(10); //reset timer
+        updateScore(0); //reset score
+        changeTargetColor(getRandomColor);
+    }
+    function onChange(event){
+        if (timer === 0) return;
         let newColor = event.target.value;
         setColor(newColor);
         
@@ -23,6 +29,7 @@ export function Game(props){
     }, [timer]);
 
     function selectClick() { //
+        if (timer === 0) return;
         updateIfMatch();
     }
 
@@ -130,9 +137,9 @@ export function Game(props){
                 </div>
                 
                 <div id="btn">
-                  <a href="#" className="btn btn-success" onClick={selectClick} disabled={timer === "10s"}Y>Select</a>
+                  <a href="#" className="btn btn-success" onClick={selectClick}>Select</a>
                   <a href="#" className="btn btn-secondary">Pause</a>
-                  <a href="#" className="btn btn-danger" >Reset</a>
+                  <a href="#" className="btn btn-danger" onClick={resetGame}>Reset</a>
                 </div>
                 
               </div>
@@ -150,10 +157,3 @@ function SelectorSquare({chosenColor}) {
     );
 }
 
-function TargetSquare({}) {
-    return (
-        <svg width="100" height="100">
-            <rect width="100" height="100" fill={chosenColor}/>
-        </svg>
-    )
-}
