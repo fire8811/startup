@@ -3,7 +3,7 @@ import './play.css';
 
 export function Game(props){
     let score = 0;
-    const [color, setColor] = React.useState('rgb(0, 0, 0)');
+    const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
 
     function getRandomColor(){
@@ -13,7 +13,11 @@ export function Game(props){
     function onChange(event){ 
         let newColor = event.target.value;
         setColor(newColor);
-        updateTargetIfMatch(newColor);
+        
+    }
+
+    function selectClick() { //
+        updateTargetIfMatch();
     }
 
     function hexToRGB(hexColor){
@@ -23,6 +27,18 @@ export function Game(props){
         
         return ('rgb(' + r +',' + g + ',' + b +')');
         
+    }
+
+    function updateTargetIfMatch(){
+        let playerColor = hexToRGB(color);
+        //console.log("TARGET: " + targetColor); //color of target square
+        //console.log("PLAYER: " + playerColor); //color of player square
+        
+        let playerRGB = getRgbArray(playerColor);
+        let targetRGB = getRgbArray(targetColor);        
+        
+        //console.log("GAME: " + testColorEquality(targetRGB, playerRGB));
+        //console.log(targetColor == playerColor);
     }
 
     function testColorEquality(target, player) {
@@ -48,20 +64,6 @@ export function Game(props){
         }
         
         return false;
-        
-        
-    }
-
-    function updateTargetIfMatch(playerColor){
-        playerColor = hexToRGB(playerColor);
-        console.log("TARGET: " + targetColor); //color of target square
-        console.log("PLAYER: " + playerColor); //color of player square
-        
-        let playerRGB = getRgbArray(playerColor);
-        let targetRGB = getRgbArray(targetColor);        
-        
-        console.log("GAME: " + testColorEquality(targetRGB, playerRGB));
-        console.log(targetColor == playerColor);
     }
 
     function getRgbArray(rgb){
@@ -105,7 +107,7 @@ export function Game(props){
                 </div>
                 
                 <div id="btn">
-                  <a href="#" className="btn btn-success">Select</a>
+                  <a href="#" className="btn btn-success" onClick={selectClick}>Select</a>
                   <a href="#" className="btn btn-secondary">Pause</a>
                   <a href="#" className="btn btn-danger">Reset</a>
                 </div>
