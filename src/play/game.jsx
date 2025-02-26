@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import './play.css';
 
 export function Game(props){
+    const [gameStatus, setGameStatus] = React.useState("Player_Name's Game");
     const [timer, updateTimer] = React.useState(10)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
@@ -11,15 +12,24 @@ export function Game(props){
         updateTimer(10); //reset timer
         updateScore(0); //reset score
         changeTargetColor(getRandomColor);
+        setGameStatus("Player_Name's Game")
     }
-    function onChange(event){
+
+    useEffect(() => {
+        if (timer == 0){
+            setGameStatus("GAME OVER");
+        }
+        
+    }, [timer]);
+
+    function onChange(event){ //changes the color square based on color picker input
         if (timer === 0) return;
         let newColor = event.target.value;
         setColor(newColor);
         
     }
 
-    useEffect(() => {
+    useEffect(() => { //timer functionality 
         if (timer > 0){
             const interval = setInterval(() => {
                 updateTimer((time) => time - 1);
@@ -28,7 +38,7 @@ export function Game(props){
         }
     }, [timer]);
 
-    function selectClick() { //
+    function selectClick() { //select button
         if (timer === 0) return;
         updateIfMatch();
     }
@@ -107,7 +117,7 @@ export function Game(props){
 
     return (
         <div className="center-content">
-          <h3>Player_Name's Game</h3>
+          <h3>{gameStatus}</h3>
           <div id="card" className="demo-box">
             <div className="card border-0 shadow" style={{width:"400px"}}>
               <div className="card-body">
