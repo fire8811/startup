@@ -2,12 +2,41 @@ import React from 'react';
 import './play.css';
 
 export function Game(props){
-    const [color, colorUpdate] = React.useState();
+    let score = 0;
+    const [color, setColor] = React.useState('rgb(0, 0, 0)');
+    const [targetColor, changeTargetColor] = React.useState(getRandomColor());
 
-    function onChange(event){
-        colorUpdate(event.target.value);
+    function getRandomColor(){
+        return 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) +',' + Math.floor(Math.random() * 256) + ')';
     }
     
+    function onChange(event){ 
+        let newColor = event.target.value;
+        setColor(newColor);
+        updateTargetIfMatch(newColor);
+    }
+
+    function hexToRGB(hexColor){
+        const r = parseInt(hexColor.slice(1, 3), 16);
+        const g = parseInt(hexColor.slice(3, 5), 16);
+        const b = parseInt(hexColor.slice(5, 7), 16);
+        
+        return ('rgb(' + r +',' + g + ',' + b +')');
+        
+    }
+
+    function testColorEquality(target, player) {
+        console.log("IN_TEST_COLOR_EQUALITY")
+        console.log("TARGET: " + target);
+        console.log("PLAYER: " + player);
+    }
+
+    function updateTargetIfMatch(playerColor){
+        playerColor = hexToRGB(playerColor);
+        console.log("TARGET: " + targetColor); //color of target square
+        console.log("PLAYER: " + playerColor); //color of player square
+        console.log(targetColor == playerColor);
+    }
 
     return (
         <div className="center-content">
@@ -27,16 +56,15 @@ export function Game(props){
 
 
                 <div className="squares">
-                
-                  <svg width="100" height="100">
-                    <rect width="100" height="100" fill="red"/>
-                  </svg>
+                    <svg width="100" height="100">
+                        <rect width="100" height="100" fill={targetColor}/>
+                    </svg>
 
-                  <SelectorSquare chosenColor={color}/>
+                    <SelectorSquare chosenColor={color}/>
                 </div>
 
                 
-                  <label for="color">Pick Color: </label>
+                <label for="color">Pick Color: </label>
                 <div id="color-picker">
                   <input type="color" onChange={onChange} value={color} />
                 </div>
@@ -60,4 +88,12 @@ function SelectorSquare({chosenColor}) {
             <rect width="100" height="100" fill={chosenColor}/>
         </svg>
     );
+}
+
+function TargetSquare({}) {
+    return (
+        <svg width="100" height="100">
+            <rect width="100" height="100" fill={chosenColor}/>
+        </svg>
+    )
 }
