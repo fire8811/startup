@@ -2,22 +2,30 @@ import React, {useEffect} from 'react';
 import './play.css';
 
 export function Game({user}){
+    const [startStatus, updateStartStatus] = React.useState(false)
     const [pauseLabel, updatePause] = React.useState("Pause")
     const [colorLabel, updateLabel] = React.useState("\u00A0"); //API color name or wrong color warning
-    const [canPlay, updateCanPlay] = React.useState(true); //game pause status
+    const [canPlay, updateCanPlay] = React.useState(false); //game pause status
     const [gameStatus, setGameStatus] = React.useState(`${user}'s Game`);
-    const [timer, updateTimer] = React.useState(90)
+    const [timer, updateTimer] = React.useState(120)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
     
+    function startGame() {
+        updateStartStatus(true)
+        updateCanPlay(true);
+    }
+
     function resetGame(){
-        updateTimer(90); //reset timer
+        updateStartStatus(false);
+        updateCanPlay(false);
+        updateTimer(120); //reset timer
         updateScore(0); //reset score
         changeTargetColor(getRandomColor);
         setGameStatus(`${user}'s Game`)
         updateLabel("\u00A0")
-        updateCanPlay(true);
+        
     }
 
     function pauseGame() {
@@ -181,9 +189,17 @@ export function Game({user}){
                 </div>
                 
                 <div id="btn">
-                  <a href="#" className="btn btn-success" onClick={selectClick}>Select</a>
-                  <a href="#" className="btn btn-secondary" onClick={pauseGame}>{pauseLabel}</a>
-                  <a href="#" className="btn btn-danger" onClick={resetGame}>Reset</a>
+                  {startStatus === true && (
+                    <>
+                      <a href="#" className="btn btn-success" onClick={selectClick}>Select</a>
+                      <a href="#" className="btn btn-secondary" onClick={pauseGame}>{pauseLabel}</a>
+                      <a href="#" className="btn btn-danger" onClick={resetGame}>Reset</a>
+                    </>                   
+                  )}
+                  {startStatus === false && (
+                    <a href="#" className="btn btn-success" onClick={startGame}>Begin</a>
+                  )}
+                  
                 </div>
                 
               </div>
