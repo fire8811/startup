@@ -1,7 +1,7 @@
 import React from 'react';
 import {Game} from './game'
 import './play.css'
-export function Play(){
+export function Play({user}){
     return (
         <main className="container-fluid bg-secondary text-center">
         <div className="notification text-start">
@@ -12,7 +12,7 @@ export function Play(){
           </ul>
         </div>
 
-        <Game/>
+        <Game user={user}/>
         </main>
     );
 }

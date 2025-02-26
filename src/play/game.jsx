@@ -5,7 +5,7 @@ export function Game({user}){
     const [pauseLabel, updatePause] = React.useState("Pause")
     const [colorLabel, updateLabel] = React.useState("\u00A0"); //API color name or wrong color warning
     const [canPlay, updateCanPlay] = React.useState(true); //game pause status
-    const [gameStatus, setGameStatus] = React.useState("Player_Name's Game");
+    const [gameStatus, setGameStatus] = React.useState(`${user}'s Game`);
     const [timer, updateTimer] = React.useState(90)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
@@ -15,7 +15,7 @@ export function Game({user}){
         updateTimer(90); //reset timer
         updateScore(0); //reset score
         changeTargetColor(getRandomColor);
-        setGameStatus("Player_Name's Game")
+        setGameStatus(`${user}'s Game`)
         updateLabel("\u00A0")
         updateCanPlay(true);
     }
