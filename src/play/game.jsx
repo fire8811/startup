@@ -27,15 +27,50 @@ export function Game(props){
 
     function testColorEquality(target, player) {
         console.log("IN_TEST_COLOR_EQUALITY")
-        console.log("TARGET: " + target);
-        console.log("PLAYER: " + player);
+        console.log("TARGET_RGB: " + target);
+        console.log("PLAYER_RGB: " + player);
+
+        let targetR = target[0]
+        let targetG = target[1]
+        let targetB = target[2]
+
+        let playerR = player[0]
+        let playerG = player[1]
+        let playerB = player[2]
+
+        let rDiff = Math.abs(playerR - targetR);
+        let gDiff = Math.abs(playerG - targetG);
+        let bDiff = Math.abs(playerB - targetB);
+        //console.log([rDiff, gDiff, bDiff]);
+
+        if ((rDiff <= 5) && (gDiff <= 5) && (bDiff <= 5)){
+            return true;
+        }
+        
+        return false;
+        
+        
     }
 
     function updateTargetIfMatch(playerColor){
         playerColor = hexToRGB(playerColor);
         console.log("TARGET: " + targetColor); //color of target square
         console.log("PLAYER: " + playerColor); //color of player square
+        
+        let playerRGB = getRgbArray(playerColor);
+        let targetRGB = getRgbArray(targetColor);        
+        
+        console.log("GAME: " + testColorEquality(targetRGB, playerRGB));
         console.log(targetColor == playerColor);
+    }
+
+    function getRgbArray(rgb){
+        let rgbArray = rgb.match(/\d+/g);
+        for (let i = 0; i < 3; i++){
+            rgbArray[i] = parseInt(rgbArray[i]);
+        }
+
+        return rgbArray;
     }
 
     return (
