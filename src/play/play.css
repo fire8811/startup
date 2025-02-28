@@ -19,6 +19,7 @@ main {
 .notification {
     margin: .8em;
     color: gray;
+    width: 200px;
 }
 
 .card-body{
