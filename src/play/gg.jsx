@@ -22,7 +22,7 @@ export function GGnotification({user}){
       ];
 
     React.useEffect(() => {
-        setInterval(() => {
+        const interval = setInterval(() => {
             const users = ['Calvin', 'Hobbes', 'SpacemanSpiff', 'SusieDerkins', 'TracerBullet'];
             
             const randomUser = users[Math.floor(Math.random() * users.length)];
@@ -31,7 +31,9 @@ export function GGnotification({user}){
             setMsg(newMsg);
 
         }, 2000);
-    })
+
+        return () => clearInterval(interval) //clear interval when component unmounts (ensures consistent timing between messages)
+    }, [])
 
     function ggClick(){
         const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];

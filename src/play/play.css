@@ -15,7 +15,9 @@ main {
     flex-direction: row;
     align-items: center;
     align-self: flex-start;
+    position: absolute;
 }
+
 .notification {
     margin: .8em;
     color: gray;
