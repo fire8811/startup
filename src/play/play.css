@@ -3,28 +3,6 @@ html, body{
     margin: 0;
 }
 
-body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-header{
-    flex: 0 80px;
-    background-color: rgb(185, 49, 142);;
-}
-
-menu {
-    flex: 1;
-    flex-direction: row !important;
-    align-items: center;
-}
-
-menu .nav-item {
-    padding: 0 0.45em;
-    align-items: center;
-}
-
 main {
     display: flex;
     flex-direction: column;
@@ -32,13 +10,12 @@ main {
     background: linear-gradient(to bottom, aliceblue, #c9d5ef);
 }
 
-main .center-content{
+.row-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
+    align-self: flex-start;
 }
-
 .notification {
     margin: .8em;
     color: gray;
@@ -62,34 +39,4 @@ main .center-content{
 
 .btn {
     margin-top: .75em;
-}
-
-footer {
-    flex: 0 60px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-left: .4em;
-    padding-right: .4em;
-    background-color: rgb(85, 0, 113);
-}
-
-footer .pallete-credit{
-    float: right;
-    align-items: center;
-}
-
-@media(max-height: 600px){
-    footer{
-        display: none;
-    }
-}
-
-@media(max-height: 500px){
-    header.container-fluid{
-        display: none;
-    }
-    nav.navbar.fixed-top{
-        display: none;
-    }
 }
