@@ -7,7 +7,7 @@ export function Game({user}){
     const [colorLabel, updateLabel] = React.useState("\u00A0"); //API color name or wrong color warning
     const [canPlay, updateCanPlay] = React.useState(false); //game active/inactive state
     const [gameStatus, setGameStatus] = React.useState(`${user}'s Game`);  //displays username's game or GAME OVER message
-    const [timer, updateTimer] = React.useState(100)
+    const [timer, updateTimer] = React.useState(15)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000');
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
@@ -20,7 +20,7 @@ export function Game({user}){
     function resetGame(){
         updateStartStatus(false); //revert to start game button layout
         updateCanPlay(false); //freeze timer and gameplay elements
-        updateTimer(100); //reset timer
+        updateTimer(15); //reset timer
         updateScore(0); //reset score
         changeTargetColor(getRandomColor);
         setGameStatus(`${user}'s Game`)
@@ -55,10 +55,12 @@ export function Game({user}){
         
     }, [colorLabel]);
 
+    //END OF GAME CONTROL BELOW
     useEffect(() => { //display GAME OVER when the timer reaches 0
         if (timer == 0){
             setGameStatus("GAME OVER");
             updateCanPlay(false);
+            saveScore(score);
         }
         
     }, [timer]);
@@ -114,7 +116,7 @@ export function Game({user}){
         const r = parseInt(hexColor.slice(1, 3), 16);
         const g = parseInt(hexColor.slice(3, 5), 16);
         const b = parseInt(hexColor.slice(5, 7), 16);
-        
+      
         return ('rgb(' + r +',' + g + ',' + b +')');
         
     }
@@ -123,7 +125,8 @@ export function Game({user}){
         //console.log("IN_TEST_COLOR_EQUALITY")
         //console.log("TARGET_RGB: " + target);
         //console.log("PLAYER_RGB: " + player);
-
+        console.log(target);
+        console.log(player);
         let targetR = target[0]
         let targetG = target[1]
         let targetB = target[2]
@@ -135,9 +138,10 @@ export function Game({user}){
         let rDiff = Math.abs(playerR - targetR);
         let gDiff = Math.abs(playerG - targetG);
         let bDiff = Math.abs(playerB - targetB);
-        //console.log([rDiff, gDiff, bDiff]);
+        console.log([rDiff, gDiff, bDiff]);
 
-        if ((rDiff <= 40) && (gDiff <= 40) && (bDiff <= 40)){
+
+        if ((rDiff <= 30) && (gDiff <= 30) && (bDiff <= 30)){
             return true;
         }
         
@@ -155,6 +159,34 @@ export function Game({user}){
 
     function getRandomColor(){
         return 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) +',' + Math.floor(Math.random() * 256) + ')';
+    }
+
+    async function saveScore(score) {
+      console.log("IN_SAVE_SCORE")
+      const time = new Date().toLocaleTimeString();
+      const scoreObject = {name: user, score: score, time: time}; //create score object consisting of username, score, and timestamp
+
+      let scores = []
+      const allScores = localStorage.getItem('scores'); //retrieves the scores data, which is saved as a STRING
+      if (allScores) {
+        scores = JSON.parse(allScores); //converts scores data string to JS readable array of objects
+      }
+
+      let scoreEntered = false;
+
+       for (const[i, savedScore] of scores.entries()) {
+        if (scoreObject.score > savedScore.score){
+          scores.splice(i, 0, scoreObject) //insert the new score (score) at index i
+          scoreEntered = true;
+          break;
+        }
+       }
+
+       if (!scoreEntered){
+        scores.push(scoreObject);
+       }
+
+       localStorage.setItem('scores', JSON.stringify(scores))
     }
 
     return (

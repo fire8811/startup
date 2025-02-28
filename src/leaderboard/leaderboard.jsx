@@ -5,7 +5,7 @@ export function Leaderboard(){
     return (
         <main className="container-fluid bg-secondary text-center">
             <div>
-        <h3> Top High Scores </h3>
+        <h3> Top Scores </h3>
         <ol>
           <li>
             <div class="score-name">Spaceman Spiff</div>
