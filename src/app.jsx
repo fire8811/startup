@@ -20,7 +20,7 @@ export default function App(){
           <header className ="container-fluid">
             <nav className="navbar fixed-top navbar-dark">
               <a className="navbar-brand" href="#">
-                <img alt="Paint" src="Assets/pallette.png" width="50" />
+                <img alt="Paint" src="/Assets/pallette.png" width="50" />
                 Huey!</a>
               <menu className="navbar-nav">
                 <li className="nav-item">

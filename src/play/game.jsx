@@ -9,8 +9,9 @@ export function Game({user}){
     const [gameStatus, setGameStatus] = React.useState(`${user}'s Game`);  //displays username's game or GAME OVER message
     const [timer, updateTimer] = React.useState(100)
     const [score, updateScore] = React.useState(0);
-    const [color, setColor] = React.useState('#000000');
+    const [color, setColor] = React.useState('#000000'); //color that user can change
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
+    const [colorLabelColor, updateColorLabelColor] = React.useState('#000000'); //
     
     function startGame() {
         updateStartStatus(true)
@@ -98,18 +99,32 @@ export function Game({user}){
             console.log("MATCH")
             updateScore(score+1);
             changeTargetColor(getRandomColor())
-            updateLabel("[API PROVIDED COLOR NAME HERE]")
-
-            //update targetColor
-            //add points to scoreboard
+            showColorName(targetRGB);
         }
         else{
+            updateColorLabelColor('#000000');
             updateLabel("WRONG COLOR!");
         }
-        //else:
-        //print "WRONG COLOR"
-        //console.log("GAME: " + testColorEquality(targetRGB, playerRGB));
-        //console.log(targetColor == playerColor);
+    }
+
+    function showColorName(color){
+        console.log(color);
+        let r = color[0]
+        let g = color[1]
+        let b = color[2]
+
+        let url = `http://www.thecolorapi.com/id?rgb=${r},${g},${b}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then((data => {
+                console.log(data.name.value);
+                updateColorLabelColor(`rgb(${r},${g},${b})`);
+                updateLabel(`CORRECT: ${data.name.value}`);
+                
+            }))
+            .catch();
+
     }
 
     function hexToRGB(hexColor){
@@ -117,19 +132,17 @@ export function Game({user}){
         const g = parseInt(hexColor.slice(3, 5), 16);
         const b = parseInt(hexColor.slice(5, 7), 16);
       
-        return ('rgb(' + r +',' + g + ',' + b +')');
-        
+        return ('rgb(' + r +',' + g + ',' + b +')');    
     }
 
     function testColorEquality(target, player) {
-        //console.log("IN_TEST_COLOR_EQUALITY")
-        //console.log("TARGET_RGB: " + target);
-        //console.log("PLAYER_RGB: " + player);
         console.log(target);
         console.log(player);
         let targetR = target[0]
         let targetG = target[1]
         let targetB = target[2]
+
+        console.log([targetR, targetG, targetB]);
 
         let playerR = player[0]
         let playerG = player[1]
@@ -203,7 +216,7 @@ export function Game({user}){
                     Time Remaining: &nbsp;<span id="time-remaining">{timer}</span>
                   </div>
                 </div>
-                <h5>{colorLabel}</h5>
+                <h5 style={ {color: colorLabelColor} }>{colorLabel}</h5>
 
 
                 <div className="squares">
