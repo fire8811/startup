@@ -5,7 +5,11 @@ import '../app.css';
 export function Authenticated(props){
     const navigate = useNavigate();
 
-    function logout() {
+    async function logout() {
+        const response = await fetch('api/logout', {
+            method: 'delete',
+        })
+        
         localStorage.removeItem('USERNAME');
         props.onLogout();
     }
