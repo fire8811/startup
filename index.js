@@ -7,7 +7,8 @@ const app = express();
 const cookieName = "token";
 
 let users = [];
-let scores = [];
+let topScores = [];
+let allScores = [];
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,17 +29,12 @@ async function createUser(username, password) {
     return newUser;
 }
 
-function setAuthCookie(res, user) {
-    res.cookie('token', user.token, {
+function setAuthCookie(res, token) {
+    res.cookie('token', token, {
         secure: true,
         httpOnly: true,
         sameSite: 'strict'
     });
-}
-
-function clearAuthCookie(res, user) {
-    delete user.token;
-    res.clearCookie('token');
 }
 
 function getUser(field, value){
@@ -46,6 +42,11 @@ function getUser(field, value){
         return users.find((user) => user[field] === value);
     }
     return null;
+}
+
+function clearAuthCookie(res, user) {
+    delete user.token;
+    res.clearCookie('token');
 }
 
 //registration
@@ -77,18 +78,49 @@ router.post('/login', async (req, res) => {
 })
 
 router.delete('/logout', async (req, res) => {
-    const token = req.cookies['token'];
-    const user = await getUser('token', token);
+    const user = await getUser('token', req.cookies['token']);
     if (user) {
-        delete user.token;
         clearAuthCookie(res, user);
     }
     res.status(204).end();
 });
 
+
+
+//middleware that verifies user is authorized
+const isAuthenticated = async (req, res, next) => {
+    const authenticatedUser = await getUser('token', req.cookies['token']);
+    if (authenticatedUser) {
+        next();
+    } else {
+        res.status(401).send({ msg: 'Unauthorized!' });
+    }
+}
+
+router.post('/score', isAuthenticated, (req, res) => {
+    newScore = req.body;
+    allScores.push(newScore);
+
+    let scoreEntered = false;
+
+    for (const[i, savedScore] of topScores.entries()) {
+    if (newScore.score > savedScore.score){
+        topScores.splice(i, 0, newScore) //insert the new score (score) at index i
+        scoreEntered = true;
+        break;
+    }
+    }
+
+    if (!scoreEntered){
+    topScores.push(scoreObject);
+    }
+
+    res.send(topScores)
+})
+
 //return scores
-router.get('/scores', (_req, res) => {
-    res.send(scores);
+router.get('/scores', isAuthenticated,  (_req, res) => {
+    res.send({topScores, allScores});
 })
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;

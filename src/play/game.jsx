@@ -7,7 +7,7 @@ export function Game({user}){
     const [colorLabel, updateLabel] = React.useState("\u00A0"); //API color name or wrong color warning
     const [canPlay, updateCanPlay] = React.useState(false); //game active/inactive state
     const [gameStatus, setGameStatus] = React.useState(`${user}'s Game`);  //displays username's game or GAME OVER message
-    const [timer, updateTimer] = React.useState(100)
+    const [timer, updateTimer] = React.useState(10)
     const [score, updateScore] = React.useState(0);
     const [color, setColor] = React.useState('#000000'); //color that user can change
     const [targetColor, changeTargetColor] = React.useState(getRandomColor());
@@ -21,7 +21,7 @@ export function Game({user}){
     function resetGame(){
         updateStartStatus(false); //revert to start game button layout
         updateCanPlay(false); //freeze timer and gameplay elements
-        updateTimer(100); //reset timer
+        updateTimer(10); //reset timer
         updateScore(0); //reset score
         changeTargetColor(getRandomColor);
         setGameStatus(`${user}'s Game`)
@@ -32,6 +32,7 @@ export function Game({user}){
     function pauseGame() {
         if (pauseLabel === "Pause"){
             updatePause("Resume");
+            updateColorLabelColor(color);
             updateLabel("Game Paused")
             updateCanPlay(false);
             console.log(canPlay);
@@ -176,30 +177,14 @@ export function Game({user}){
 
     async function saveScore(score) {
       console.log("IN_SAVE_SCORE")
-      const time = new Date().toLocaleTimeString();
+      const time = new Date().toLocaleString();
       const scoreObject = {name: user, score: score, time: time}; //create score object consisting of username, score, and timestamp
-
-      let scores = []
-      const allScores = localStorage.getItem('scores'); //retrieves the scores data, which is saved as a STRING
-      if (allScores) {
-        scores = JSON.parse(allScores); //converts scores data string to JS readable array of objects
-      }
-
-      let scoreEntered = false;
-
-       for (const[i, savedScore] of scores.entries()) {
-        if (scoreObject.score > savedScore.score){
-          scores.splice(i, 0, scoreObject) //insert the new score (score) at index i
-          scoreEntered = true;
-          break;
-        }
-       }
-
-       if (!scoreEntered){
-        scores.push(scoreObject);
-       }
-
-       localStorage.setItem('scores', JSON.stringify(scores))
+    
+      await fetch('api/score', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(scoreObject),
+      });
     }
 
     return (
