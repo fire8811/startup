@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
 
     if (user && (await bcrypt.compare(req.body.password, user.password))) { //check if user exists AND passwords match
         user.token = uuid.v4();
-        setAuthCookie(res, user);
+        setAuthCookie(res, user.token);
         res.send( {username: user.username});
         return;
 
