@@ -4,7 +4,7 @@ import './leaderboard.css';
 export function Leaderboard(){
   const [topScores, setTopScores] = React.useState([]);
   const [allScores, setAllScores] = React.useState([]);
-  const [count, updateCount] = React.useState(0);
+  const [count, updateCount] = React.useState({});
 
   React.useEffect(()=>{
     fetch('api/scores')
@@ -12,6 +12,7 @@ export function Leaderboard(){
 
       .then((scoreData) => {
         setTopScores(scoreData.topScores)
+        setAllScores(scoreData.allScores)
       });
   }, []);
 
@@ -27,22 +28,29 @@ export function Leaderboard(){
           <td>{score.name}</td>
           <td>{score.score}</td>
           <td>{score.time}</td>
-          <td>{count[score.score]}</td>
+          <td>{count[score.score] || 0}</td>
           <td>--</td>
         </tr>
       );
     }
   } 
 
-  function processScoreCount(givenScore){
-    updateCount(0);
+  React.useEffect(()=>{ //display how many times a score has been scored and how recent
+    if (allScores.length) {
+      const scoreCounts = {};
 
-    for(const [score] of allScores.entries()){
-      if (score === givenScore){
-        updateCount(count+1);
-      }
+      topScores.forEach((topScore) => { //filter through all topScores and then allScores (pretty ineffecient)
+        let scoreFrequency = 0;
+
+        allScores.forEach(score => {
+          if (score.score === topScore.score) scoreFrequency++; //score match, so increase count
+        });
+
+        scoreCounts[topScore.score] = scoreFrequency;
+      });
+      updateCount(scoreCounts);
     }
-  }
+  }, [allScores]);
 
     return (
         <main className="container-fluid bg-secondary text-center p-5">  
