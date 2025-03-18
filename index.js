@@ -33,7 +33,7 @@ function setAuthCookie(res, token) {
     console.log("TOKEN (set cookie): " + token);
 
     res.cookie('token', token, {
-        secure: false,
+        secure: true,
         httpOnly: true,
         sameSite: 'strict',
     });
