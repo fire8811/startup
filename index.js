@@ -30,17 +30,23 @@ async function createUser(username, password) {
 }
 
 function setAuthCookie(res, token) {
+    console.log("TOKEN (set cookie): " + token);
+
     res.cookie('token', token, {
-        secure: true,
+        secure: false,
         httpOnly: true,
-        sameSite: 'strict'
+        sameSite: 'strict',
     });
 }
 
 function getUser(field, value){
+    console.log("GET_USER")
+    console.log("value (get_user): " + value);
+    console.log(users);
     if (value) {
         return users.find((user) => user[field] === value);
     }
+    console.log("NOT_FOUND")
     return null;
 }
 
@@ -89,7 +95,12 @@ router.delete('/logout', async (req, res) => {
 
 //middleware that verifies user is authorized
 const isAuthenticated = async (req, res, next) => {
+    console.log("IS_AUTHENTICATED");
+    console.log("Token cookie:", req.cookies['token']);
+    console.log("Cookies: ", req.cookies);
+
     const authenticatedUser = await getUser('token', req.cookies['token']);
+    
     if (authenticatedUser) {
         next();
     } else {
@@ -98,28 +109,31 @@ const isAuthenticated = async (req, res, next) => {
 }
 
 router.post('/score', isAuthenticated, (req, res) => {
+    console.log("\n*************IN_SCORE_ENDPOINT")
     newScore = req.body;
     allScores.push(newScore);
 
     let scoreEntered = false;
 
     for (const[i, savedScore] of topScores.entries()) {
-    if (newScore.score > savedScore.score){
-        topScores.splice(i, 0, newScore) //insert the new score (score) at index i
-        scoreEntered = true;
-        break;
+        if (newScore.score > savedScore.score){
+            topScores.splice(i, 0, newScore) //insert the new score (score) at index i
+            scoreEntered = true;
+            break;
+        }
     }
-    }
-
+    
     if (!scoreEntered){
-    topScores.push(scoreObject);
+    topScores.push(newScore);
     }
 
+    console.log(topScores);
     res.send(topScores)
 })
 
 //return scores
 router.get('/scores', isAuthenticated,  (_req, res) => {
+    console.log("****GET_SCORES*******");
     res.send({topScores, allScores});
 })
 
