@@ -121,10 +121,14 @@ router.post('/score', isAuthenticated, (req, res) => {
             scoreEntered = true;
             break;
         }
+        else if (newScore.score === savedScore.score){ //score is already in leaderboard (tie)
+            scoreEntered = true;
+            break;
+        }
     }
     
-    if (!scoreEntered){
-    topScores.push(newScore);
+    if (topScores.length === 0){
+        topScores.push(newScore);
     }
 
     console.log(topScores);

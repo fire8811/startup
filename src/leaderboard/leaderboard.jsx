@@ -10,11 +10,13 @@ export function Leaderboard(){
     fetch('api/scores')
       .then((response) => response.json())
 
-      .then((topScores, allScores) => {
-        setTopScores(topScores)
-        setAllScores(allScores)
+      .then((scoreData) => {
+        setTopScores(scoreData.topScores)
       });
   }, []);
+
+  console.log(topScores);
+  console.log(allScores);
 
   const rows = [];
   if (topScores.length){
@@ -25,7 +27,7 @@ export function Leaderboard(){
           <td>{score.name}</td>
           <td>{score.score}</td>
           <td>{score.time}</td>
-          <td>{processScoreCount(score.score)}</td>
+          <td>{count[score.score]}</td>
           <td>--</td>
         </tr>
       );
