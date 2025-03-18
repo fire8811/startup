@@ -114,7 +114,7 @@ export function Game({user}){
         let g = color[1]
         let b = color[2]
 
-        let url = `http://www.thecolorapi.com/id?rgb=${r},${g},${b}`;
+        let url = `https://www.thecolorapi.com/id?rgb=${r},${g},${b}`;
 
         fetch(url)
             .then(response => response.json())
