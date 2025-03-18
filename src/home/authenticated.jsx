@@ -6,7 +6,7 @@ export function Authenticated(props){
     const navigate = useNavigate();
 
     async function logout() {
-        const response = await fetch('api/logout', {
+        fetch('api/logout', {
             method: 'delete',
         })
         
