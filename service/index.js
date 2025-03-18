@@ -125,7 +125,7 @@ router.post('/score', isAuthenticated, (req, res) => {
         }
     }
     
-    if (topScores.length === 0){
+    if (!scoreEntered){
         topScores.push(newScore);
     }
 

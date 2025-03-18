@@ -29,7 +29,7 @@ export function Leaderboard(){
           <td>{score.name}</td>
           <td>{score.score}</td>
           <td>{score.time}</td>
-          <td>{count[score.score] || '--'}</td>
+          <td>{(count[score.score] - 1) || '--'}</td>
           {/* <td>{date[score.score] || '--'} </td> */}
         </tr>
       );
