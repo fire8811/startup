@@ -95,11 +95,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
+- [X] **Node.js/Express HTTP service** - Service uses Node.js/Express
+- [X] **Static middleware for frontend** - Middleware used to see if user is authenticated for certain actions
+- [X] **Calls to third party endpoints** - third party endpoint sends name of the color when a point is scored in the game
+- [X] **Backend service endpoints** - Various HTTP endpoints implemented
+- [X] **Frontend calls service endpoints** - Leaderboard page and game call endpoints for saving and accessing scores
 
 ## 🚀 DB/Login deliverable
 
