@@ -5,6 +5,7 @@ export function Leaderboard(){
   const [topScores, setTopScores] = React.useState([]);
   const [allScores, setAllScores] = React.useState([]);
   const [count, updateCount] = React.useState({});
+  const [date, updateDate] = React.useState({});
 
   React.useEffect(()=>{
     fetch('api/scores')
@@ -28,8 +29,8 @@ export function Leaderboard(){
           <td>{score.name}</td>
           <td>{score.score}</td>
           <td>{score.time}</td>
-          <td>{count[score.score] || 0}</td>
-          <td>--</td>
+          <td>{count[score.score] || '--'}</td>
+          {/* <td>{date[score.score] || '--'} </td> */}
         </tr>
       );
     }
@@ -38,19 +39,28 @@ export function Leaderboard(){
   React.useEffect(()=>{ //display how many times a score has been scored and how recent
     if (allScores.length) {
       const scoreCounts = {};
+      const scoreDates = {};
 
       topScores.forEach((topScore) => { //filter through all topScores and then allScores (pretty ineffecient)
         let scoreFrequency = 0;
+        let mostRecentDateScored = null
 
         allScores.forEach(score => {
           if (score.score === topScore.score) scoreFrequency++; //score match, so increase count
-        });
 
+          if (!mostRecentDateScored || new Date(score.date) > new Date(mostRecentDateScored)){
+            mostRecentDateScored = score.date;
+          }
+        });
+        console.log(`Most recent date: ${mostRecentDateScored}`);
         scoreCounts[topScore.score] = scoreFrequency;
+        scoreDates[topScore.score] = mostRecentDateScored || topScore.date;
+        
       });
       updateCount(scoreCounts);
+      updateDate(scoreDates);
     }
-  }, [allScores]);
+  }, [topScores, allScores]);
 
     return (
         <main className="container-fluid bg-secondary text-center p-5">  
@@ -62,8 +72,8 @@ export function Leaderboard(){
                 <th>Name</th>
                 <th>Score</th>
                 <th>When</th>
-                <th>Number of Times Scored</th>
-                <th>Most Recent</th>
+                <th>Ties</th>
+                {/* <th>Most Recent</th> */}
               </tr>
             </thead>
             <tbody id='scores'>{rows}</tbody>
