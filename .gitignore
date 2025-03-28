@@ -1,2 +1,6 @@
 *.pem
 *.sh
+
+dbConfig.json
+
+node_modules
