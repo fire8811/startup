@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
 let users = [];
 let topScores = [];
@@ -23,7 +24,8 @@ async function createUser(username, password) {
         token: uuid.v4(),
     };
 
-    users.push(newUser);
+    DB.addUser(user);
+
     return newUser;
 }
 
@@ -38,13 +40,23 @@ function setAuthCookie(res, token) {
 }
 
 function getUser(field, value){
-    console.log("GET_USER")
-    console.log("value (get_user): " + value);
-    console.log(users);
-    if (value) {
-        return users.find((user) => user[field] === value);
+    // console.log("GET_USER")
+    // console.log("value (get_user): " + value);
+    // console.log(users);
+    // if (value) {
+    //     return users.find((user) => user[field] === value);
+    // }
+    // console.log("NOT_FOUND")
+
+    if (!value) return null;
+    
+    if (field == 'token'){
+        return DB.findUserByToken(value);
     }
-    console.log("NOT_FOUND")
+    else if (field == 'username') {
+        return DB.findUserByName(value);
+    }
+
     return null;
 }
 
@@ -54,8 +66,8 @@ function clearAuthCookie(res, user) {
 }
 
 //registration
-router.post('/create', async (req, res) => {
-    if (await getUser('username', req.body.username)) {  //check to see if username/username is avaliable 
+router.post('/create', async (req, res) => { 
+    if (await getUser('username', req.body.username)) {  //check to see if username/username is avaliable TODO: getByUsername
         res.status(409).send({ msg: 'Username Taken!'});
     } else {
         const newUser = await createUser(req.body.username, req.body.password);
@@ -68,7 +80,7 @@ router.post('/create', async (req, res) => {
 //login
 router.post('/login', async (req, res) => {
     console.log(req.username);
-    const user = await getUser('username', req.body.username);
+    const user = await getUser('username', req.body.username); //TODO: getByUsername
 
     if (user && (await bcrypt.compare(req.body.password, user.password))) { //check if user exists AND passwords match
         user.token = uuid.v4();
@@ -82,7 +94,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.delete('/logout', async (req, res) => {
-    const user = await getUser('token', req.cookies['token']);
+    const user = await getUser('token', req.cookies['token']); //TODO: getByToken
     if (user) {
         clearAuthCookie(res, user);
     }
@@ -97,7 +109,7 @@ const isAuthenticated = async (req, res, next) => {
     console.log("Token cookie:", req.cookies['token']);
     console.log("Cookies: ", req.cookies);
 
-    const authenticatedUser = await getUser('token', req.cookies['token']);
+    const authenticatedUser = await getUser('token', req.cookies['token']); //TODO: getByToken
     
     if (authenticatedUser) {
         next();
