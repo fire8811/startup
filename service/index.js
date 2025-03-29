@@ -6,8 +6,7 @@ const app = express();
 const DB = require('./database.js');
 
 let users = [];
-let topScores = [];
-let allScores = [];
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -124,33 +123,39 @@ const isAuthenticated = async (req, res, next) => {
 router.post('/score', isAuthenticated, (req, res) => {
     console.log("\n*************IN_SCORE_ENDPOINT")
     newScore = req.body;
-    allScores.push(newScore);
+    //allScores.push(newScore);
 
-    let scoreEntered = false;
+    // let scoreEntered = false;
 
-    for (const[i, savedScore] of topScores.entries()) {
-        if (newScore.score > savedScore.score){
-            topScores.splice(i, 0, newScore) //insert the new score (score) at index i
-            scoreEntered = true;
-            break;
-        }
-        else if (newScore.score === savedScore.score){ //score is already in leaderboard (tie)
-            scoreEntered = true;
-            break;
-        }
-    }
+    // for (const[i, savedScore] of topScores.entries()) {
+    //     if (newScore.score > savedScore.score){
+    //         topScores.splice(i, 0, newScore) //insert the new score (score) at index i
+    //         scoreEntered = true;
+    //         break;
+    //     }
+    //     else if (newScore.score === savedScore.score){ //score is already in leaderboard (tie)
+    //         scoreEntered = true;
+    //         break;
+    //     }
+    // }
     
-    if (!scoreEntered){
-        topScores.push(newScore);
-    }
+    // if (!scoreEntered){
+    //     topScores.push(newScore);
+    // }
 
-    console.log(topScores);
-    res.send(topScores)
+    // console.log(topScores);
+    DB.addScore(newScore);
+    res.send(newScore);
 })
 
 //return scores
-router.get('/scores', isAuthenticated,  (_req, res) => {
+router.get('/scores', isAuthenticated, async (_req, res) => {
     console.log("****GET_SCORES*******");
+    let topScores = await DB.getHighScores();
+    let allScores = await DB.getAllScores();
+    
+    console.log(topScores);
+    console.log(allScores);
     res.send({topScores, allScores});
 })
 
