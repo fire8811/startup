@@ -24,8 +24,6 @@ async function createUser(username, password) {
         token: uuid.v4(),
     };
 
-    DB.addUser(user);
-
     return newUser;
 }
 
@@ -49,7 +47,7 @@ function getUser(field, value){
     // console.log("NOT_FOUND")
 
     if (!value) return null;
-    
+
     if (field == 'token'){
         return DB.findUserByToken(value);
     }
@@ -71,8 +69,10 @@ router.post('/create', async (req, res) => {
         res.status(409).send({ msg: 'Username Taken!'});
     } else {
         const newUser = await createUser(req.body.username, req.body.password);
-
         setAuthCookie(res, newUser.token);
+
+        DB.addUser(newUser);
+
         res.send({ username: newUser.username });
     }
 });

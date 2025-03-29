@@ -28,3 +28,9 @@ async function findUserByName(name){ //for finding if the user exists (when unau
 async function findUserByToken(token){ //used to see if the user is authenticated
     return userCollection.findOne({ token: token });
 }
+
+module.exports = {
+    addUser,
+    findUserByName,
+    findUserByToken,
+};
