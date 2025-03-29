@@ -29,8 +29,13 @@ async function findUserByToken(token){ //used to see if the user is authenticate
     return userCollection.findOne({ token: token });
 }
 
+async function updateToken(user){
+    await userCollection.updateOne({ username: user.username }, { $set: user });
+}
+
 module.exports = {
     addUser,
     findUserByName,
     findUserByToken,
+    updateToken,
 };

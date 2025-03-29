@@ -31,21 +31,20 @@ function setAuthCookie(res, token) {
     console.log("TOKEN (set cookie): " + token);
 
     res.cookie('token', token, {
-        secure: true,
+        secure: false, //TODO: SUPER IMPORTANT CHANGE TO TRUE BEFORE PRODUCTION
         httpOnly: true,
         sameSite: 'strict',
     });
+    //console.log('EXIT SETAUTHCOOKIE');
+}
+
+function clearAuthCookie(res, user) {
+    user.token = null;
+    DB.updateToken(user);
+    res.clearCookie('token');
 }
 
 function getUser(field, value){
-    // console.log("GET_USER")
-    // console.log("value (get_user): " + value);
-    // console.log(users);
-    // if (value) {
-    //     return users.find((user) => user[field] === value);
-    // }
-    // console.log("NOT_FOUND")
-
     if (!value) return null;
 
     if (field === 'token'){
@@ -56,11 +55,6 @@ function getUser(field, value){
     }
 
     return null;
-}
-
-function clearAuthCookie(res, user) {
-    delete user.token;
-    res.clearCookie('token');
 }
 
 //registration
@@ -79,24 +73,33 @@ router.post('/create', async (req, res) => {
 
 //login
 router.post('/login', async (req, res) => {
-    console.log(req.username);
-    const user = await getUser('username', req.body.username); //TODO: getByUsername
+    console.log("username: " + req.body.username);
+
+    const user = await getUser('username', req.body.username); 
 
     if (user && (await bcrypt.compare(req.body.password, user.password))) { //check if user exists AND passwords match
         user.token = uuid.v4();
         setAuthCookie(res, user.token);
+        DB.updateToken(user);
         res.send( {username: user.username});
+        
+        console.log("END LOGIN ENDPOINT")
         return;
 
     } else {
-        res.status(401).send({msg: 'Unauthorized' });
+        res.status(401).send({msg: 'Username or Password Incorrect' });
     }
 })
 
 router.delete('/logout', async (req, res) => {
-    const user = await getUser('token', req.cookies['token']); //TODO: getByToken
+    //console.log('LOGOUT');
+
+    const user = await getUser('token', req.cookies['token']); 
+
+    //console.log(req.cookies['token']);
+    
     if (user) {
-        clearAuthCookie(res, user);
+        clearAuthCookie(res, user); //res.clearCookie('token') in simon
     }
     res.status(204).end();
 });
@@ -109,7 +112,7 @@ const isAuthenticated = async (req, res, next) => {
     console.log("Token cookie:", req.cookies['token']);
     console.log("Cookies: ", req.cookies);
 
-    const authenticatedUser = await getUser('token', req.cookies['token']); //TODO: getByToken
+    const authenticatedUser = await getUser('token', req.cookies['token']); 
     
     if (authenticatedUser) {
         next();
