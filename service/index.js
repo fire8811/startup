@@ -48,10 +48,10 @@ function getUser(field, value){
 
     if (!value) return null;
 
-    if (field == 'token'){
+    if (field === 'token'){
         return DB.findUserByToken(value);
     }
-    else if (field == 'username') {
+    else if (field === 'username') {
         return DB.findUserByName(value);
     }
 
@@ -65,7 +65,7 @@ function clearAuthCookie(res, user) {
 
 //registration
 router.post('/create', async (req, res) => { 
-    if (await getUser('username', req.body.username)) {  //check to see if username/username is avaliable TODO: getByUsername
+    if (await getUser('username', req.body.username)) {  //check to see if username/username is avaliable T
         res.status(409).send({ msg: 'Username Taken!'});
     } else {
         const newUser = await createUser(req.body.username, req.body.password);
