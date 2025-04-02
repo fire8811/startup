@@ -1,22 +1,30 @@
-class Message {
-    constructor(who){
-        this.who = who;
+class EventMessage {
+    constructor(from, type, value){
+        this.from = from;
+        this.type = type;
+        this.value = value;
     }
 }
 
-class Notifier {
-    events = [];
-    handlers = [];
+class GGnotifier {
+    observers = []
+    events = []
+    handlers = []
 
     constructor() {
-        //simulate messages
-        const userName = 'A player';
+        let port = window.location.port;
+        const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+        this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`)
 
-    }
+        this.socket.onopen = (event) => {
+            console.log("websocket connected");
+            this.notify('system', 'Connected to 4G (GGGG/Global GG Grid)')
+            this.connected = true;
+        }
+    };
 
-    broadcast(who){
-        const event = new Message(who);
-        this.receive(event);
+    notify(event, from, msg){
+        this.observers.forEach((h) => h({ event, from, msg }))
     }
 
     addHandler(handler){
@@ -24,17 +32,9 @@ class Notifier {
     }
 
     removeHandler(handler){
-        this.handlers.filter((h) => h!== handler);
+        this.handlers.filter((h) => h !== handler);
     }
-
-    receive(event){
-        this.events.push(event);
-
-        this.handlers.forEach((handler) => {
-            handler(event);
-        })
-    };
 }
 
-const GGS = new Notifier();
-export { GGS };
+const ggNotifier = new GGnotifier();
+export { ggNotifier }

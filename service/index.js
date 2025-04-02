@@ -31,7 +31,7 @@ function setAuthCookie(res, token) {
     console.log("TOKEN (set cookie): " + token);
 
     res.cookie('token', token, {
-        secure: true, //TODO: SUPER IMPORTANT CHANGE TO TRUE BEFORE PRODUCTION
+        secure: false, //TODO: SUPER IMPORTANT CHANGE TO TRUE BEFORE PRODUCTION
         httpOnly: true,
         sameSite: 'strict',
     });
