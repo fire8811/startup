@@ -1,7 +1,7 @@
 import React from "react";
 import './play.css';
 
-export function GGnotification({user}){
+export function GGnotification({user, webSocket}){
     const username = user;
     const [msg, setMsg] = React.useState('...listening');
     const verbs = [

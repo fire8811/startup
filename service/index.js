@@ -4,6 +4,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
+const { webSocket } = require('./ws.js'); //websocket stuff
 
 let users = [];
 
@@ -161,7 +162,9 @@ router.get('/scores', isAuthenticated, async (_req, res) => {
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
-app.listen(port, () => {
+const service = app.listen(port, () => {
     console.log(`running on port ${port}`);
 });
+
+webSocket(service);
 
