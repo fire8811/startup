@@ -51,6 +51,7 @@ export function GGnotification({user, webSocket}){
             console.log(message);
           }
 
+
           messageArray.push(
             <div key={i} className='event'>
               <span className={'player-event'}>{event.from[0]}</span>
@@ -63,8 +64,12 @@ export function GGnotification({user, webSocket}){
       }
 
     function ggClick(){
+        console.log("OK 0");
         const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+        console.log("OK 1")
         setMsg(`${username} ${randomVerb} GG`)
+        console.log("OK 2");
+        ggNotifier.notify(username, 'gg', msg);
     }
 
     

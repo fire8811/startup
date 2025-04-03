@@ -19,25 +19,35 @@ class GGnotifier {
         this.socket.onopen = (event) => {
             console.log("websocket connected");
             //this.notify('Huey', 'system', {msg: 'Connected to 4G (GGGG/Global GG Grid)'})
-            this.notify(new EventMessage('Huey', 'system', {msg: 'Connected to 4G (GGGG/Global GG Grid)'}));
+            this.receiveEvent(new EventMessage('Huey', 'system', {msg: 'Connected to 4G (GGGG/Global GG Grid)'}));
 
             this.connected = true;
         }
+
+        this.socket.onmessage = async (msg) => {
+            try {
+                const event = JSON.parse(await msg.data.text());
+                this.receiveEvent(event);
+            } catch {}
+        };
     };
 
-    notify(event, type, msg){
-        console.log("notifiy firing");
-        //const data = { event, type, msg };
-        const data = new EventMessage(event, type, msg);
-        if(this.handlers.length === 0){
-            console.log("no handlers");
-            this.eventQueue.push(data);
-            console.log(this.eventQueue);
-        }
-        else {
-            console.log("notify handlers");
-            this.handlers.forEach((h) => h({ event, type, msg }))
-        }
+    notify(from, type, value){
+        console.log("notify firing");
+        const event = new EventMessage(from, type, value)
+        this.socket.send(JSON.stringify(event));
+        // console.log("notifiy firing");
+        // //const data = { event, type, msg };
+        // const data = new EventMessage(event, type, msg);
+        // if(this.handlers.length === 0){
+        //     console.log("no handlers");
+        //     this.eventQueue.push(data);
+        //     console.log(this.eventQueue);
+        // }
+        // else {
+        //     console.log("notify handlers");
+        //     this.handlers.forEach((h) => h({ event, type, msg }))
+        // }
 
         
     }
@@ -55,6 +65,17 @@ class GGnotifier {
     removeHandler(handler){
         console.log("removeHandler fired");
         this.handlers = this.handlers.filter((h) => h !== handler);
+    }
+
+    receiveEvent(event){
+        this.events.push(event);
+        console.log("received: " + event);
+
+        this.events.forEach((e) => {
+            this.handlers.forEach((handler) => {
+                handler(e);
+            });
+        });
     }
 }
 
