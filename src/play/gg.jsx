@@ -37,14 +37,17 @@ export function GGnotification({user, webSocket}){
       function handleEvent(event){
         console.log("handleEvent: " + event);
         setEvent((prevEvents) => [...prevEvents, event]);
+        //setEvent([...events, event]);
       }
 
       function createMessageArray(){
         console.log("in createMessageArray");
         console.log(events.length);
         const messageArray = [];
+
         for (const [i, event] of events.entries()){
           let message = "unknown_message";
+
           console.log("event: " + event);
           if (event.type === 'system') {
             console.log("system message");
@@ -55,6 +58,7 @@ export function GGnotification({user, webSocket}){
           else if (event.type === 'gg'){
             console.log("gg message");
             message = event.value.msg;
+            console.log("message: " + message);
           }
 
 
@@ -70,12 +74,10 @@ export function GGnotification({user, webSocket}){
       }
 
     function ggClick(){
-        console.log("OK 0");
         const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-        console.log("OK 1")
-        setMsg(`${username} ${randomVerb} GG`)
-        console.log("OK 2");
-        ggNotifier.notify(username, 'gg', msg);
+        setMsg(`${randomVerb} GG`)
+        console.log("ggclickmessage " + msg);
+        ggNotifier.notify(username, 'gg', {msg: msg});
     }
 
     
