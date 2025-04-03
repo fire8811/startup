@@ -117,6 +117,6 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [X] **Backend listens for WebSocket connection** -Yup
 - [X] **Frontend makes WebSocket connection** -Frontend makes connection
-- [X] **Data sent over WebSocket connection** - Data gets sent over websocket connections
+- [X] **Data sent over WebSocket connection** - Data gets sent over websocket connections when GG button is pressed during the game
 - [X] **WebSocket data displayed** - WebSocket notifications display
 - [X] **Application is fully functional** - GG button works 100%
