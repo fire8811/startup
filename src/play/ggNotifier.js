@@ -64,7 +64,9 @@ class GGnotifier {
 
     removeHandler(handler){
         console.log("removeHandler fired");
+        console.log(this.handlers);
         this.handlers = this.handlers.filter((h) => h !== handler);
+        console.log(this.handlers);
     }
 
     receiveEvent(event){

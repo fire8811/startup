@@ -44,6 +44,7 @@ export function GGnotification({user, webSocket}){
         console.log(events.length);
         const messageArray = [];
         for (const [i, event] of events.entries()){
+          let message = "unknown_message";
           console.log("event: " + event);
           if (event.type === 'system') {
             console.log("system message");
@@ -51,10 +52,15 @@ export function GGnotification({user, webSocket}){
             console.log(message);
           }
 
+          else if (event.type === 'gg'){
+            console.log("gg message");
+            message = event.value.msg;
+          }
+
 
           messageArray.push(
             <div key={i} className='event'>
-              <span className={'player-event'}>{event.from[0]}</span>
+              <span className={'player-event'}>{event.from}</span>
               {message}
             </div>
           );
