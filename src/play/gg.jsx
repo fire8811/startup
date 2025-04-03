@@ -39,6 +39,10 @@ export function GGnotification({user, webSocket}){
         console.log("handleEvent: " + event);
         //setEvent((prevEvents) => [...prevEvents, event]);
         setEvent([...events, event]);
+
+        setTimeout(()=>{ //show message for a limited time and then delete it
+          setEvent((prevEvents) => prevEvents.filter(e => e !== event));
+        }, 7000)
       }
 
       function createMessageArray(){
@@ -82,6 +86,8 @@ export function GGnotification({user, webSocket}){
         console.log("ggclickmessage: " + msg);
         ggNotifier.notify(username, 'gg', {msg: newMessage});
     }
+
+    
 
     
     return(

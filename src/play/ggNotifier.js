@@ -18,8 +18,7 @@ class GGnotifier {
 
         this.socket.onopen = (event) => {
             console.log("websocket connected");
-            //this.notify('Huey', 'system', {msg: 'Connected to 4G (GGGG/Global GG Grid)'})
-            //this.receiveEvent(new EventMessage('Huey', 'system', {msg: 'Connected to 4G (GGGG/Global GG Grid)'}));
+            //this.notify('Huey', 'system', {msg: 'Connected to 4G (GGGG/Global GG Grid)'}
 
             this.connected = true;
         }
