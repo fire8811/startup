@@ -25,22 +25,30 @@ export function GGnotification({user, webSocket}){
       const [events, setEvent] = React.useState([]);
 
       React.useEffect(()=>{
+        console.log("Registering event handler");
         ggNotifier.addHandler(handleEvent);
 
         return () => {
+          console.log("removing event handler");
           ggNotifier.removeHandler(handleEvent);
-        }
-      });
+        };
+      }, []);
 
       function handleEvent(event){
-        setEvent([...events, event]);
+        console.log("handleEvent: " + event);
+        setEvent((prevEvents) => [...prevEvents, event]);
       }
 
       function createMessageArray(){
+        console.log("in createMessageArray");
+        console.log(events.length);
         const messageArray = [];
         for (const [i, event] of events.entries()){
+          console.log("event: " + event);
           if (event.type === 'system') {
-            message = event.value.msg;
+            console.log("system message");
+            const message = event.value.msg;
+            console.log(message);
           }
 
           messageArray.push(
@@ -53,20 +61,6 @@ export function GGnotification({user, webSocket}){
         return messageArray;
 
       }
-
-    // React.useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         const users = ['Calvin', 'Hobbes', 'SpacemanSpiff', 'SusieDerkins', 'TracerBullet'];
-            
-    //         const randomUser = users[Math.floor(Math.random() * users.length)];
-    //         const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-    //         const newMsg = `${randomUser} ${randomVerb} GG`;
-    //         setMsg(newMsg);
-
-    //     }, 2000);
-
-    //     return () => clearInterval(interval) //clear interval when component unmounts (ensures consistent timing between messages)
-    // }, [])
 
     function ggClick(){
         const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
