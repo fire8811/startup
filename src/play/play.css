@@ -51,3 +51,12 @@ main {
 .btn {
     margin-top: .75em;
 }
+
+.notification {
+    color:black;
+    font-family: monospace;
+}
+
+.player-event {
+    color: rgb(0, 144, 14);
+}

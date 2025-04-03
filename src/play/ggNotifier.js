@@ -18,7 +18,7 @@ class GGnotifier {
 
         this.socket.onopen = (event) => {
             console.log("websocket connected");
-            //this.notify('Huey', 'system', {msg: 'Connected to 4G (GGGG/Global GG Grid)'}
+            this.notify('Sys: ', 'system', {msg: 'Connected to 4G (GGGG: Global GG Grid)'});
 
             this.connected = true;
         }
@@ -34,21 +34,8 @@ class GGnotifier {
     notify(from, type, value){
         console.log("notify firing");
         const event = new EventMessage(from, type, value)
-        console.log("TYPE: " + event.type);
+        console.log("NOTIFY TYPE: " + event.type);
         this.socket.send(JSON.stringify(event));
-        // console.log("notifiy firing");
-        // //const data = { event, type, msg };
-        // const data = new EventMessage(event, type, msg);
-        // if(this.handlers.length === 0){
-        //     console.log("no handlers");
-        //     this.eventQueue.push(data);
-        //     console.log(this.eventQueue);
-        // }
-        // else {
-        //     console.log("notify handlers");
-        //     this.handlers.forEach((h) => h({ event, type, msg }))
-        // }
-
         
     }
 
