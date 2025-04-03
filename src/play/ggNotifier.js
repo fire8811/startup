@@ -56,11 +56,6 @@ class GGnotifier {
     addHandler(handler){
         console.log("addHandler fired: " + handler);
         this.handlers.push(handler);
-
-        while (this.eventQueue.length > 0) {
-            const queuedEvent = this.eventQueue.shift();
-            handler(queuedEvent);
-        }
     }
 
     removeHandler(handler){

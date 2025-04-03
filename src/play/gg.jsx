@@ -5,6 +5,7 @@ import { ggNotifier } from "./ggNotifier";
 export function GGnotification({user, webSocket}){
     const username = user;
     const [msg, setMsg] = React.useState('');
+    const [ggScore, updateGgScore] = React.useState(0);
     const verbs = [
         "said", "stated", "uttered", "voiced", "expressed", "declared", "remarked",  
         "noted", "mentioned", "added", "commented", "murmured", "whispered", "muttered",  
@@ -32,12 +33,12 @@ export function GGnotification({user, webSocket}){
           console.log("removing event handler");
           ggNotifier.removeHandler(handleEvent);
         };
-      }, []);
+      }, [events]);
 
       function handleEvent(event){
         console.log("handleEvent: " + event);
-        setEvent((prevEvents) => [...prevEvents, event]);
-        //setEvent([...events, event]);
+        //setEvent((prevEvents) => [...prevEvents, event]);
+        setEvent([...events, event]);
       }
 
       function createMessageArray(){
@@ -51,7 +52,7 @@ export function GGnotification({user, webSocket}){
           console.log("event: " + event);
           if (event.type === 'system') {
             console.log("system message");
-            const message = event.value.msg;
+            message = event.value.msg;
             console.log(message);
           }
 
@@ -75,9 +76,11 @@ export function GGnotification({user, webSocket}){
 
     function ggClick(){
         const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-        setMsg(`${randomVerb} GG`)
-        console.log("ggclickmessage " + msg);
-        ggNotifier.notify(username, 'gg', {msg: msg});
+        const newMessage = ` ${randomVerb} GG`
+        setMsg(newMessage)
+        updateGgScore(ggScore + 1);
+        console.log("ggclickmessage: " + msg);
+        ggNotifier.notify(username, 'gg', {msg: newMessage});
     }
 
     
@@ -89,6 +92,9 @@ export function GGnotification({user, webSocket}){
           
             <div id="btn">
               <a href="#" className="btn btn-primary" onClick={ggClick}>GG</a>
+            </div>
+            <div className="score">
+              &nbsp;<span id="score-value">{ggScore}</span>
             </div>
           </div>
     );
