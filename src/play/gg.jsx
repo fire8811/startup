@@ -99,8 +99,8 @@ export function GGnotification({user, webSocket}){
             <div id="btn">
               <a href="#" className="btn btn-primary" onClick={ggClick}>GG</a>
             </div>
-            <div className="score">
-              &nbsp;<span id="score-value">{ggScore}</span>
+            <div className="gg-score">
+              &nbsp;<span id="gg-score">{ggScore}</span>
             </div>
           </div>
     );

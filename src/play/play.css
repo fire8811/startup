@@ -40,6 +40,14 @@ main {
 
 }
 
+.gg-score {
+    font-family: monospace;
+    font-weight: bold;
+    display: flex;
+    font-size: xx-large;
+    padding-top: .5em;
+}
+
 .btn {
     margin-top: .75em;
 }
