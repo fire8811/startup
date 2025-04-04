@@ -2,8 +2,9 @@ const { WebSocketServer } = require('ws');
 
 function webSocket(httpServer){
     const socketServer = new WebSocketServer({ server: httpServer });
-
+    //errorCall();
     socketServer.on('connection', (socket) => {
+        //error();
         socket.isAlive = true;
 
         //forward messages to all users (including sender)

@@ -14,6 +14,7 @@ class GGnotifier {
     constructor() {
         let port = window.location.port;
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+        console.log("PROTOCOL: " + protocol);
         this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`)
 
         this.socket.onopen = (event) => {
